@@ -14,10 +14,12 @@ struct Student {
 class StudentsParent {
 
 protected:
+
 	Student* students;
 	int size;
 
 public:
+
 	StudentsParent(int n) { // конструктор класу, який приймає кількість студентів
 		size = n;
 		students = new Student[size];
@@ -70,6 +72,8 @@ class StudentsChild : public StudentsParent {
 public:
 
 	StudentsChild(int size) : StudentsParent(size) {}
+
+	StudentsChild(const StudentsChild& other) : StudentsParent(other) {}
 
 	void sort(string option) {
 		for (int i = 0; i < size - 1; i++) {
