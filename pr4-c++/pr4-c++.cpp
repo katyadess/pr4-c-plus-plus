@@ -1,5 +1,7 @@
 #include <iostream>
+#include <string>
 #include <windows.h>
+#include <locale>
 using namespace std;
 
 struct Student {
@@ -104,8 +106,28 @@ int main() {
 
 	SetConsoleCP(65001);
 	SetConsoleOutputCP(65001);
+	locale::global(locale("uk_UA.UTF-8")); // встановлення української локалі для коректної роботи сортування
+	
+	int n;
+	cout << "Введіть кількість студентів: ";
+	cin >> n;
 
-	cout << "program check";
+	StudentsChild students(n);
+	students.input();
+	students.display();
+
+	StudentsChild students2 = students;
+
+	string option;
+	cout << "Виберіть сортування (прізвище або імя): ";
+	cin >> option;
+	cout << "Сортування за " << option << ":\n";
+	students2.sort(option);
+	students2.display();
+
+	cout << "Сортування за номером з.п:\n";
+	students2.sort();
+	students2.display();
 
 	return 0;
 }
