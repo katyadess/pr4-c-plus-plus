@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include <string>
 #include <windows.h>
 #include <locale>
@@ -78,12 +79,15 @@ public:
 	StudentsChild(const StudentsChild& other) : StudentsParent(other) {}
 
 	void sort(string option) {
+
+		setlocale(LC_ALL, "uk_UA.UTF-8");
+
 		for (int i = 0; i < size - 1; i++) {
 			for (int j = 0; j < size - i - 1; j++) {
-				if ((option == "Прізвище" || option == "прізвище") && students[j].lastName > students[j + 1].lastName) {
+				if ((option == "Прізвище" || option == "прізвище") && (strcoll(students[j].lastName.c_str(), students[j + 1].lastName.c_str()) > 0)) {
 					swap(students[j], students[j + 1]);
 				}
-				else if ((option == "Імя" || option == "імя") && students[j].firstName > students[j + 1].firstName) {
+				else if ((option == "Імя" || option == "імя") && (strcoll(students[j].firstName.c_str(), students[j + 1].firstName.c_str()) > 0)) {
 					swap(students[j], students[j + 1]);
 				}
 			}
@@ -106,8 +110,8 @@ int main() {
 
 	SetConsoleCP(65001);
 	SetConsoleOutputCP(65001);
-	locale::global(locale("uk_UA.UTF-8")); // встановлення української локалі для коректної роботи сортування
 	
+
 	int n;
 	cout << "Введіть кількість студентів: ";
 	cin >> n;
@@ -121,7 +125,6 @@ int main() {
 	string option;
 	cout << "Виберіть сортування (прізвище або імя): ";
 	cin >> option;
-	cout << "Сортування за " << option << ":\n";
 	students2.sort(option);
 	students2.display();
 
