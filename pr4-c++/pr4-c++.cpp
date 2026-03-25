@@ -11,18 +11,19 @@ struct Student {
 	string formOfEducation; // форма навчання (очна, заочна, вечірня)
 };
 
-class Students {
-private:
+class StudentsParent {
+
+protected:
 	Student* students;
 	int size;
 
 public:
-	Students(int n) { // конструктор класу, який приймає кількість студентів
+	StudentsParent(int n) { // конструктор класу, який приймає кількість студентів
 		size = n;
 		students = new Student[size];
 	}
 
-	Students(const Students& other) { // конструктор копіювання
+	StudentsParent(const StudentsParent& other) { // конструктор копіювання
 		size = other.size;
 		students = new Student[size];
 		for (int i = 0; i < size; i++) {
@@ -62,7 +63,13 @@ public:
 		}
 	}
 
-	// перевантаження методу сортування за різними критеріями (прізвище, ім'я, номер з.п)
+};
+
+class StudentsChild : public StudentsParent {
+
+public:
+
+	StudentsChild(int size) : StudentsParent(size) {}
 
 	void sort(string option) {
 		for (int i = 0; i < size - 1; i++) {
@@ -86,8 +93,8 @@ public:
 			}
 		}
 	}
-
 };
+
 
 int main() {
 
